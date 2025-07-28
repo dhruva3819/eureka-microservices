@@ -1,34 +1,38 @@
-// Jenkinsfile for Eureka Microservices
 pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Code') {
             steps {
-                git url: 'https://github.com/your-username/eureka-microservices.git',
-                    credentialsId: 'github-pat' // Replace with your actual Jenkins credential ID
+                echo '📝 Writing or preparing code...'
+                // Simulate code step (optional)
+                sh 'mkdir -p src && echo "public class App { public static void main(String[] args) { System.out.println(\\"Hello World\\"); }}" > src/App.java'
             }
         }
 
         stage('Build') {
             steps {
-                echo '🔨 Building Eureka microservice...'
-                sh './mvnw clean package -DskipTests'  // or use mvn if wrapper not present
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo '🧪 Running tests...'
-                sh './mvnw test'
+                echo '🔨 Compiling the code...'
+                // Simulate build (for Java, using javac)
+                sh 'javac src/App.java'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo '🚀 Deploying Eureka microservice...'
-                // Add deployment commands or scripts here
+                echo '🚀 Deploying the application...'
+                // Simulate deployment
+                sh 'echo "Running app..." && java -cp src App'
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed.'
         }
     }
 }
